@@ -1,0 +1,24 @@
+<div class="center-container">
+  <form [formGroup]="registerForm" (submit)="submit(registerForm.value)">
+    <md-input-container>
+      <input mdInput type="text"  placeholder="Name" [formControl]="registerForm.controls['name']">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput type="text"  placeholder="Last name" [formControl]="registerForm.controls['lastName']">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput type="email"  placeholder="Email" [formControl]="registerForm.controls['email']">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput type="password"  placeholder="Password" [formControl]="registerForm.controls['password']">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput type="text"  placeholder="Company" [formControl]="registerForm.controls['company']">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput type="text"  placeholder="Phone number" [formControl]="registerForm.controls['phoneNumber']">
+    </md-input-container>
+    <button type="submit" md-raised-button color="primary" [disabled]="!registerForm.valid">Register</button>
+    <button type="button" md-button color="accent" routerLink="/login">Login</button>
+  </form>
+</div>
