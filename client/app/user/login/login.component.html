@@ -1,4 +1,5 @@
 <div class="center-container">
+
   <form [formGroup]="loginForm" (submit)="submit(loginForm.value)">
     <md-input-container>
       <input mdInput type="email"  placeholder="Email" [formControl]="loginForm.controls['email']">
@@ -6,7 +7,7 @@
     <md-input-container>
       <input mdInput type="password"  placeholder="Password" [formControl]="loginForm.controls['password']">
     </md-input-container>
-    <button type="submit" md-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
+    <button type="submit" md-raised-button color="primary" [disabled]="!loginForm.valid || loading">Login</button>
     <button type="button" md-button color="accent" routerLink="/register">Register</button>
   </form>
 </div>

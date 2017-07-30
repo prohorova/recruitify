@@ -18,7 +18,7 @@
     <md-input-container>
       <input mdInput type="text"  placeholder="Phone number" [formControl]="registerForm.controls['phoneNumber']">
     </md-input-container>
-    <button type="submit" md-raised-button color="primary" [disabled]="!registerForm.valid">Register</button>
+    <button type="submit" md-raised-button color="primary" [disabled]="!registerForm.valid || loading">Register</button>
     <button type="button" md-button color="accent" routerLink="/login">Login</button>
   </form>
 </div>

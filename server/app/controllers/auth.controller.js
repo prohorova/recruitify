@@ -1,6 +1,7 @@
 var jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
 var crypto = require('crypto');
+var _ = require('lodash');
 var User = require('../models/user.model');
 var Token = require('../models/token.model');
 var config = require('../../config/config');
@@ -12,9 +13,10 @@ exports.login = function(req, res, next) {
   User.findOne({email: email}, function(err, user) {
     if (err) return next(err);
     if (!user) return res.status(400).send({message: 'User doesn\'t exist'});
+    if (!user.isVerified) return res.status(400).send({message: 'User is not verified'});
     if (!user.validPassword(password)) return res.status(400).send({message: 'Password is invalid'});
 
-    var token = jwt.sign(newUser.toJSON(), config.jwtSecret, {
+    var token = jwt.sign(user.toJSON(), config.jwtSecret, {
       expiresIn: 24*60*60
     });
 
@@ -28,45 +30,73 @@ exports.register = function(req, res, next) {
   User.findOne({email: email}, function(err, user) {
     if (err) return next(err);
     if (user) {
-      return res.status(400).send({message: 'User already registered'});
-    }
-    var newUser = new User(req.body);
-    newUser.setPasswordHash(newUser.password);
-    newUser.save(function(err) {
-      if (err) return next(err);
+      if (user.isVerified) {
+        return res.status(400).send({message: 'User with this email already exists'});
+      } else {
+        // update user
+        _.extend(user, req.body);
+        user.setPasswordHash(user.password);
 
-      var token = new Token({
-        user: newUser,
-        token: crypto.randomBytes(16).toString('hex')
-      });
+        user.save(function(err) {
+          if (err) return next(err);
 
-      token.save(function(err) {
+          var token = new Token({
+            user: user,
+            token: crypto.randomBytes(16).toString('hex')
+          });
+
+          token.save(function(err) {
+            if (err) return next(err);
+
+            // Send the email
+            var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
+            var mailOptions = { from: 'no-reply@example.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirm\/' + token.token + '.\n' };
+            transporter.sendMail(mailOptions, function (err) {
+              if (err) return res.status(500).send({ msg: err.message });
+              return res.status(200).send({message: 'A verification email has been sent to ' + user.email});
+            });
+          })
+        });
+      }
+    } else {
+      var newUser = new User(req.body);
+      newUser.setPasswordHash(newUser.password);
+      newUser.save(function(err) {
         if (err) return next(err);
 
-        // Send the email
-        var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-        var mailOptions = { from: 'no-reply@example.com', to: newUser.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirm\/' + token.token + '.\n' };
-        transporter.sendMail(mailOptions, function (err) {
-          if (err) return res.status(500).send({ msg: err.message });
-          return res.status(200).send('A verification email has been sent to ' + newUser.email + '.');
+        var token = new Token({
+          user: newUser,
+          token: crypto.randomBytes(16).toString('hex')
         });
+
+        token.save(function(err) {
+          if (err) return next(err);
+
+          // Send the email
+          var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
+          var mailOptions = { from: 'no-reply@example.com', to: newUser.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirm\/' + token.token + '.\n' };
+          transporter.sendMail(mailOptions, function (err) {
+            if (err) return res.status(500).send({ msg: err.message });
+            return res.status(200).send({message: 'A verification email has been sent to ' + newUser.email});
+          });
+        })
       })
-    })
+    }
   })
 };
 
 exports.confirm = function(req, res, next) {
-  var param = req.params.token;
-  Token.findOne({token: param}, function(err, token) {
+  var tokenStr = req.body.token;
+  Token.findOne({token: tokenStr}, function(err, token) {
     if (err) return next(err);
     User.findOne({_id: token.user}, function(err, user) {
       if (err) return next(err);
       if (!user) return res.status(400).send({message: 'No user found'});
-      if (user.isVerified) return res.status(400).send({message: 'User already was verified'});
+      if (user.isVerified) return res.status(400).send({message: 'User was already verified'});
       user.isVerified = true;
       user.save(function(err) {
         if (err) return next(err);
-        return res.send({message: 'The account was verified'});
+        return res.send({message: 'The account has been verified. You can login now'});
       })
     })
   })
@@ -91,14 +121,14 @@ exports.resendToken = function(req, res, next) {
       var mailOptions = { from: 'no-reply@example.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirm\/' + token.token + '.\n' };
       transporter.sendMail(mailOptions, function (err) {
         if (err) return res.status(500).send({ msg: err.message });
-        return res.status(200).send('A verification email has been sent to ' + user.email + '.');
+        return res.status(200).send('A verification email has been sent to ' + user.email);
       });
     });
   })
 };
 
 exports.hasAccess = function(req, res, next) {
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  var token = req.headers['Authorization'];
   if (!token) {
     return res.status(401).send({message: 'Not authenticated'});
   }

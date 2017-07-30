@@ -8,7 +8,7 @@ body {
   flex: 1 1 auto;
 }
 
-h1, h2, h3 {
+.center {
   text-align: center;
 }
 
@@ -31,20 +31,46 @@ form md-input-container, form button {
   width: 100%;
 }
 
+/* container */
+
 @media (min-width: 480px) {
   .center-container {
     width: 80%;
+
   }
 }
 
 @media (min-width: 768px) {
   .center-container {
     width: 60%;
+
   }
 }
 
 @media (min-width: 992px) {
   .center-container {
     width: 40%;
+
   }
+}
+
+/* loader */
+
+.loader {
+  animation: rotate 0.8s infinite linear;
+  border: 8px solid #ff4081;
+  border-right-color: transparent;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  height: 100px;
+  width: 100px;
+}
+
+@keyframes rotate {
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
 }
