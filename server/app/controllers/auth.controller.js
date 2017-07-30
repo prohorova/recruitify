@@ -50,7 +50,7 @@ exports.register = function(req, res, next) {
 
             // Send the email
             var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-            var mailOptions = { from: 'no-reply@example.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirm\/' + token.token + '.\n' };
+            var mailOptions = { from: 'no-reply@example.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/confirm\/' + token.token + '.\n' };
             transporter.sendMail(mailOptions, function (err) {
               if (err) return res.status(500).send({ msg: err.message });
               return res.status(200).send({message: 'A verification email has been sent to ' + user.email});
@@ -74,7 +74,7 @@ exports.register = function(req, res, next) {
 
           // Send the email
           var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-          var mailOptions = { from: 'no-reply@example.com', to: newUser.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirm\/' + token.token + '.\n' };
+          var mailOptions = { from: 'no-reply@example.com', to: newUser.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/confirm\/' + token.token + '.\n' };
           transporter.sendMail(mailOptions, function (err) {
             if (err) return res.status(500).send({ msg: err.message });
             return res.status(200).send({message: 'A verification email has been sent to ' + newUser.email});
@@ -118,7 +118,7 @@ exports.resendToken = function(req, res, next) {
       if (err) return next(err);
 
       var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-      var mailOptions = { from: 'no-reply@example.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirm\/' + token.token + '.\n' };
+      var mailOptions = { from: 'no-reply@example.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/confirm\/' + token.token + '.\n' };
       transporter.sendMail(mailOptions, function (err) {
         if (err) return res.status(500).send({ msg: err.message });
         return res.status(200).send('A verification email has been sent to ' + user.email);
