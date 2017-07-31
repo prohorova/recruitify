@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var compress = require('compression');
@@ -29,8 +30,8 @@ module.exports = function() {
 
   app.use(express.static('./dist'));
 
-  app.get('/*', function(req, res) {
-    res.sendFile('./dist/index.html');
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../../dist/index.html'));
   });
 
   return app;
