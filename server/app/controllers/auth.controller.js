@@ -89,6 +89,7 @@ exports.confirm = function(req, res, next) {
   var tokenStr = req.body.token;
   Token.findOne({token: tokenStr}, function(err, token) {
     if (err) return next(err);
+    if (!token) return res.status(400).send({message: 'Invalid token'});
     User.findOne({_id: token.user}, function(err, user) {
       if (err) return next(err);
       if (!user) return res.status(400).send({message: 'No user found'});
