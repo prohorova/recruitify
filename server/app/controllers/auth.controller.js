@@ -103,31 +103,6 @@ exports.confirm = function(req, res, next) {
   })
 };
 
-exports.resendToken = function(req, res, next) {
-  var email = req.body.email;
-  User.findOne({email: email}, function(err, user) {
-    if (err) return next(err);
-    if (!user) return res.status(400).send({message: 'No user found'});
-    if (user.isVerified) return res.status(400).send({message: 'User already was verified'});
-
-    var token = new Token({
-      user: user,
-      token: crypto.randomBytes(16).toString('hex')
-    });
-
-    token.save(function(err) {
-      if (err) return next(err);
-
-      var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-      var mailOptions = { from: 'no-reply@example.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/confirm\/' + token.token + '.\n' };
-      transporter.sendMail(mailOptions, function (err) {
-        if (err) return res.status(500).send({ msg: err.message });
-        return res.status(200).send('A verification email has been sent to ' + user.email);
-      });
-    });
-  })
-};
-
 exports.hasAccess = function(req, res, next) {
   var token = req.headers['Authorization'];
   if (!token) {

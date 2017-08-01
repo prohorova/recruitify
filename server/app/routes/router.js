@@ -11,8 +11,6 @@ module.exports = function(app) {
 
   app.post('/api/confirm', authController.confirm);
 
-  //app.post('/api/resend');
-
   // error handler
 
   app.use(errorHandler);
