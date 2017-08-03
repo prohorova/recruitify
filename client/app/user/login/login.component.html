@@ -1,8 +1,7 @@
 <div class="center-container">
-
   <form [formGroup]="loginForm" (submit)="submit(loginForm.value)">
     <md-input-container>
-      <input mdInput type="email"  placeholder="Email" [formControl]="loginForm.controls['email']">
+      <input mdInput type="email" placeholder="Email" [formControl]="loginForm.controls['email']">
     </md-input-container>
     <md-input-container>
       <input mdInput type="password"  placeholder="Password" [formControl]="loginForm.controls['password']">

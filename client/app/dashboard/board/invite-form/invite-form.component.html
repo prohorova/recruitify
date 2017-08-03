@@ -1,0 +1,29 @@
+<h3>Invite users</h3>
+<form [formGroup]="inviteForm" (submit)="submit(inviteForm.value)">
+  <md-input-container>
+    <input mdInput type="name"  placeholder="Name" [formControl]="inviteForm.controls['name']">
+  </md-input-container>
+  <div class="radio-group">
+    <md-radio-group [formControl]="inviteForm.controls['method']">
+      <label>Preferred method:</label>
+      <md-radio-button class="radio"
+                       *ngFor="let method of methods"
+                       [value]="method">
+        {{method}}
+      </md-radio-button>
+    </md-radio-group>
+  </div>
+  <md-input-container *ngIf="showField(methods[0])">
+    <input mdInput type="email"
+           placeholder="Email"
+           [formControl]="inviteForm.controls['email']">
+  </md-input-container>
+  <md-input-container *ngIf="showField(methods[1])">
+    <input mdInput type="phone"
+           placeholder="Phone"
+           [formControl]="inviteForm.controls['phone']">
+  </md-input-container>
+  <button type="submit" md-raised-button color="primary" [disabled]="!inviteForm.valid || loading">
+    Invite
+  </button>
+</form>

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
-import { UserService } from '../../core/user/user.service';
+import { UserService } from '../services/user.service';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 
 @Component({

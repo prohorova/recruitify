@@ -1,0 +1,17 @@
+<div class="container">
+  <!--<h3>You have been invited by ololo</h3>-->
+  <div *ngIf="questionsForm">
+    <form [formGroup]="questionsForm" (submit)="submit(questionsForm.value)">
+      <div formArrayName="questions">
+        <div *ngFor="let question of questionsForm.controls.questions.controls; let i = index">
+          <div [formGroupName]="i">
+            <span class="question">{{questionsForm.controls.questions.controls[i].controls.question.value}}</span>
+            <md-slider min="0" max="10" step="1" thumb-label="true" formControlName="answer"></md-slider>
+          </div>
+        </div>
+      </div>
+      <button type="submit" md-raised-button color="primary" [disabled]="loading || submitted">Submit</button>
+    </form>
+  </div>
+</div>
+

@@ -27,7 +27,7 @@ var UserSchema = new Schema({
   companyName: {
     type: String
   },
-  phoneNumber: {
+  phone: {
     type: String
   },
   isVerified: {

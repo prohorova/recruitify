@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/*.outlet {*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+/*}*/

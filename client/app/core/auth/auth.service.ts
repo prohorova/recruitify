@@ -13,6 +13,11 @@ export class AuthService {
     return token ? this.jwtHelper.decodeToken(token) : null;
   }
 
+  isAuthenticated() {
+    const token = localStorage.getItem('token');
+    return token && !this.jwtHelper.isTokenExpired(token);
+  }
+
   saveToken(token) {
     localStorage.setItem('token', token);
   }

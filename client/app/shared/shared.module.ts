@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { MdToolbarModule, MdButtonModule, MdMenuModule, MdInputModule, MdDialogModule, MdIconModule } from '@angular/material';
+import { MdToolbarModule, MdButtonModule, MdMenuModule, MdInputModule, MdDialogModule,
+  MdIconModule, MdSidenavModule, MdProgressBarModule, MdCardModule, MdRadioModule, MdSliderModule } from '@angular/material';
 
 import { DialogComponent } from './dialog/dialog.component';
 import { NavComponent } from './nav/nav.component';
@@ -29,6 +30,12 @@ import { NavComponent } from './nav/nav.component';
     MdButtonModule,
     MdInputModule,
     MdDialogModule,
+    MdSidenavModule,
+    MdCardModule,
+    MdRadioModule,
+    MdSliderModule,
+
+    MdProgressBarModule,
 
     DialogComponent,
     NavComponent

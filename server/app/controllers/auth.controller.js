@@ -104,10 +104,11 @@ exports.confirm = function(req, res, next) {
 };
 
 exports.hasAccess = function(req, res, next) {
-  var token = req.headers['Authorization'];
+  var token = req.headers['authorization'];
   if (!token) {
     return res.status(401).send({message: 'Not authenticated'});
   }
+  token = token.replace('Bearer ', '');
   jwt.verify(token, config.jwtSecret, function(err, decoded) {
     if (err) return res.status(401).send({message: 'Failed to authenticate token'});
     req.decoded = decoded;

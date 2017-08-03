@@ -3,7 +3,14 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
 import { dashboardRoutes } from './dashboard.routes';
+import { InviteService } from './services/invite.service';
+import { ReviewsService } from './services/reviews.service';
 import { DashboardComponent } from './dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
+import { BoardComponent } from './board/board.component';
+import { InviteFormComponent } from './board/invite-form/invite-form.component';
+import { StatisticsComponent } from './board/statistics/statistics.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 @NgModule({
   imports: [
@@ -11,7 +18,9 @@ import { DashboardComponent } from './dashboard.component';
     RouterModule.forChild(dashboardRoutes)
   ],
   exports: [ DashboardComponent ],
-  declarations: [ DashboardComponent ]
+  declarations: [ DashboardComponent, ProfileComponent, BoardComponent, InviteFormComponent, StatisticsComponent,
+    ReviewsComponent ],
+  providers: [ InviteService, ReviewsService ]
 })
 
 export class DashboardModule {

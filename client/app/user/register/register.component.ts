@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MdDialog } from '@angular/material';
-import { UserService } from '../../core/user/user.service';
+import { UserService } from '../services/user.service';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 
 @Component({
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
       email: ['',  Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       company: '',
-      phoneNumber: ''
+      phone: ''
     })
   }
 

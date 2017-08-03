@@ -1,3 +1,10 @@
-<div>
-  Hi {{getName()}}
-</div>
+<md-sidenav-container class="sidenav-container" open>
+  <md-sidenav #sidenav class="sidenav" opened="true" mode="side">
+    <app-profile></app-profile>
+  </md-sidenav>
+
+  <div class="sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+
+</md-sidenav-container>

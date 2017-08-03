@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
+import { UserService } from './services/user.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { userRoutes } from './user.routes';
@@ -14,7 +15,8 @@ import { UserComponent } from './user.component';
     RouterModule.forChild(userRoutes)
   ],
   exports: [ UserComponent ],
-  declarations: [ LoginComponent, RegisterComponent, ConfirmComponent, UserComponent ]
+  declarations: [ LoginComponent, RegisterComponent, ConfirmComponent, UserComponent ],
+  providers: [ UserService ]
 })
 
 export class UserModule {

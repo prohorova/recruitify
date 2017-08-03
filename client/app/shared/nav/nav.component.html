@@ -1,13 +1,19 @@
 <md-toolbar color="primary">
   <a routerLink="/"><span class="brand" >Recruitify</span></a>
   <span class="fill"></span>
-  <button *ngIf="!isLoggedIn()" md-button routerLink="/auth/login">
+  <button *ngIf="!isAuthenticated()" md-button routerLink="/auth/login">
     Login
   </button>
-  <button *ngIf="!isLoggedIn()" md-button routerLink="/auth/register">
+  <button *ngIf="!isAuthenticated()" md-button routerLink="/auth/register">
     Register
   </button>
-  <button *ngIf="isLoggedIn()" md-icon-button [mdMenuTriggerFor]="menu">
+  <button *ngIf="isAuthenticated()" md-button routerLink="/dashboard">
+    Dashboard
+  </button>
+  <button *ngIf="isAuthenticated()" md-button routerLink="/dashboard/reviews">
+    Reviews
+  </button>
+  <button *ngIf="isAuthenticated()" md-icon-button [mdMenuTriggerFor]="menu">
     <md-icon>more_vert</md-icon>
   </button>
   <md-menu #menu="mdMenu">
@@ -17,3 +23,4 @@
     </button>
   </md-menu>
 </md-toolbar>
+

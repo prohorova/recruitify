@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
-import { UserService } from '../../core/user/user.service';
+import { UserService } from '../services/user.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 
@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.userService.login(data)
       .subscribe((res: any) => {
-          console.log(res.token);
           this.auth.saveToken(res.token);
           this.router.navigate(['/dashboard']);
         },
