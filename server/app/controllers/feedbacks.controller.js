@@ -22,8 +22,7 @@ exports.create = function(req, res, next) {
 };
 
 exports.list = function(req, res, next) {
-  const userId = req.decoded._id;
-  Feedback.findById(userId).populate('customer', 'name').exec(function(err, feedbacks) {
+  Feedback.find({user: req.decoded._id}).populate('customer', 'name').exec(function(err, feedbacks) {
     if (err) return next(err);
     return res.send(feedbacks);
   })
