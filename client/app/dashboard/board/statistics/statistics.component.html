@@ -1,5 +1,5 @@
 <md-card class="card">
-  <p>Number of candidates invited: <b>10</b></p>
-  <p>Number of questionnaires completed: <b>4</b></p>
-  <button md-raised-button color="primary">See all reviews</button>
+  <p>Number of candidates invited: <b>{{statistics.invited || '-'}}</b></p>
+  <p>Number of questionnaires completed: <b>{{statistics.completed || '-'}}</b></p>
+  <a md-raised-button color="primary" routerLink="/dashboard/reviews">See all reviews</a>
 </md-card>

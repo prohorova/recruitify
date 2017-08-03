@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewsService } from '../services/reviews.service';
-import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-reviews',
@@ -11,12 +10,10 @@ export class ReviewsComponent implements OnInit {
 
   reviews: any[];
 
-  constructor(private auth: AuthService,
-              private reviewsService: ReviewsService) { }
+  constructor(private reviewsService: ReviewsService) { }
 
   ngOnInit() {
-    let userId = this.auth.getUser()._id;
-    this.reviewsService.getReviews(userId)
+    this.reviewsService.getReviews()
       .subscribe(res => {
         this.reviews = res;
       }, err => {

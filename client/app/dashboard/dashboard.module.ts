@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { dashboardRoutes } from './dashboard.routes';
 import { InviteService } from './services/invite.service';
 import { ReviewsService } from './services/reviews.service';
+import { StatisticsService } from './services/statistics.service';
 import { DashboardComponent } from './dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardComponent } from './board/board.component';
@@ -20,7 +21,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
   exports: [ DashboardComponent ],
   declarations: [ DashboardComponent, ProfileComponent, BoardComponent, InviteFormComponent, StatisticsComponent,
     ReviewsComponent ],
-  providers: [ InviteService, ReviewsService ]
+  providers: [ InviteService, ReviewsService, StatisticsService ]
 })
 
 export class DashboardModule {

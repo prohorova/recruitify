@@ -5,13 +5,14 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
+
 @Injectable()
-export class ReviewsService {
+export class StatisticsService {
 
   constructor(private authHttp: AuthHttp) { }
 
-  getReviews() {
-    return this.authHttp.get(`/api/feedback`)
+  getStatistics() {
+    return this.authHttp.get(`/api/statistics`)
       .map(res => res.json())
       .catch(err => Observable.throw(err.json()));
   }

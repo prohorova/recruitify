@@ -1,4 +1,5 @@
 var authController = require('../controllers/auth.controller');
+var usersController = require('../controllers/user.controller');
 var customersController = require('../controllers/customers.controller.js');
 var questionsController = require('../controllers/questions.controller');
 var feedbackController = require('../controllers/feedbacks.controller');
@@ -13,6 +14,10 @@ module.exports = function(app) {
   app.post('/api/register', authController.validateRegister, authController.register);
 
   app.post('/api/confirm', authController.confirm);
+
+  // user
+
+  app.get('/api/statistics', authController.hasAccess, usersController.getStatistics);
 
   // customers
 

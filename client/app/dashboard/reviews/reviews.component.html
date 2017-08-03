@@ -1,3 +1,4 @@
+<div *ngIf="!reviews">No reviews yet</div>
 <md-card *ngFor="let review of reviews">
   <md-card-title>
     {{review.customer.name}}
