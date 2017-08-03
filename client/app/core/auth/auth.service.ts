@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { JwtHelper } from 'angular2-jwt';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   getUser() {
     const token = localStorage.getItem('token');
@@ -24,6 +25,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    this.router.navigate(['/auth']);
   }
 
 }

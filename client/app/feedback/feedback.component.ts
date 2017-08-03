@@ -31,12 +31,16 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       this.customerId = params['customerId'];
 
       if (!this.customerId) {
-        this.router.navigate(['/']);
+        this.dialog.open(DialogComponent, {
+          data: {
+            title: 'Feedback failure',
+            message: 'Invalid url'
+          }
+        });
+      } else {
+        this.getCustomer();
+        this.getQuestions();
       }
-
-      this.getCustomer();
-
-      this.getQuestions();
     })
   }
 
