@@ -27,7 +27,7 @@ exports.create = function(req, res, next) {
 
 exports.get = function(req, res, next) {
   var id = req.params.id;
-  Customer.findById(id).populate('user', 'company').exec(function(err, customer) {
+  Customer.findById(id).populate('user', 'companyName').exec(function(err, customer) {
     if (err) return next(err);
     if (!customer) return res.status(400).send({message: 'No customer found'});
     if (customer.completed) return res.status(400).send({message: 'Customer already left feedback'});
