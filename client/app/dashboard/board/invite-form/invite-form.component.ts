@@ -22,7 +22,7 @@ export class InviteFormComponent implements OnInit {
   ngOnInit() {
     this.inviteForm = this.fb.group({
       name: ['', Validators.required],
-      method: ['', Validators.required],
+      method: [this.methods[0], Validators.required],
       email: '',
       phone: ''
     });
@@ -58,10 +58,6 @@ export class InviteFormComponent implements OnInit {
         this.inviteForm.reset();
 
         this.inviteForm.controls['method'].setValue(this.methods[0]);
-
-        Object.keys(this.inviteForm.controls).forEach(key => {
-          this.inviteForm.controls[key].setErrors(null);
-        });
 
         this.dialog.open(DialogComponent, {
           data: {
