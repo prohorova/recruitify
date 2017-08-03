@@ -8,7 +8,7 @@ import { StatisticsService } from '../../services/statistics.service';
 })
 export class StatisticsComponent implements OnInit {
 
-  statistics = {};
+  statistics: any = {};
 
   constructor(private statisticsService: StatisticsService) { }
 
