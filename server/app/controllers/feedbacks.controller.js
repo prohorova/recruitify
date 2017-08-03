@@ -1,7 +1,7 @@
 var Customer = require('../models/customer.model');
 var Feedback = require('../models/feedback.model');
 
-exports.createFeedback = function(req, res, next) {
+exports.create = function(req, res, next) {
   Customer.findOne({_id: req.body.customerId}, function(err, customer) {
     if (err) return next(err);
     if (!customer) return res.status(400).send({message: 'Customer doesn\'t exist'});
@@ -21,7 +21,7 @@ exports.createFeedback = function(req, res, next) {
   })
 };
 
-exports.listFeedbacks = function(req, res, next) {
+exports.list = function(req, res, next) {
   const userId = req.query.user;
   if (!userId) return res.status(400).send({message: 'No user provided'});
   Feedback.find({user: userId}).populate('customer', 'name').exec(function(err, feedbacks) {

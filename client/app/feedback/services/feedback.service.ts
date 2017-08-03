@@ -16,6 +16,12 @@ export class FeedbackService {
       .catch(err => Observable.throw(err.json()))
   }
 
+  getCustomer(customerId) {
+    return this.http.get(`/api/customer/${customerId}`)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()))
+  }
+
   leaveFeedback(data) {
     return this.http.post('/api/feedback', data)
       .map(res => res.json())

@@ -1,5 +1,5 @@
 var authController = require('../controllers/auth.controller');
-var invitationsController = require('../controllers/invitations.controller');
+var customersController = require('../controllers/customers.controller.js');
 var questionsController = require('../controllers/questions.controller');
 var feedbackController = require('../controllers/feedbacks.controller');
 var errorHandler = require('../utils/errorHandler');
@@ -14,19 +14,21 @@ module.exports = function(app) {
 
   app.post('/api/confirm', authController.confirm);
 
-  // invitations
+  // customers
 
-  app.post('/api/invitation', authController.hasAccess, invitationsController.inviteCustomer);
+  app.post('/api/customer', authController.hasAccess, customersController.create);
+
+  app.get('/api/customer/:id', customersController.get);
 
   // questions
 
-  app.get('/api/questions', questionsController.getQuestions);
+  app.get('/api/questions', questionsController.list);
 
   // feedback
 
-  app.get('/api/feedback', authController.hasAccess, feedbackController.listFeedbacks);
+  app.get('/api/feedback', authController.hasAccess, feedbackController.list);
 
-  app.post('/api/feedback', feedbackController.createFeedback);
+  app.post('/api/feedback', feedbackController.create);
 
   // error handler
 

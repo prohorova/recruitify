@@ -1,10 +1,9 @@
 var nodemailer = require('nodemailer');
 var Customer = require('../models/customer.model');
 
-exports.inviteCustomer = function(req, res, next) {
+exports.create = function(req, res, next) {
   if (req.body.phone) return res.status(200).send({message: 'No support for sms yet!'});
   Customer.findOne({email: req.body.email, phone: req.body.phone}, function(err, customer) {
-    console.log(customer);
     if (err) return next(err);
     if (customer) return res.status(400).send({message: 'Customer was already invited'});
     var newCustomer = new Customer(req.body);
@@ -24,4 +23,14 @@ exports.inviteCustomer = function(req, res, next) {
       }
     })
   })
+};
+
+exports.get = function(req, res, next) {
+  var id = req.params.id;
+  Customer.findById(id).populate('user', 'company').exec(function(err, customer) {
+    if (err) return next(err);
+    if (!customer) return res.status(400).send({message: 'No customer found'});
+    if (customer.completed) return res.status(400).send({message: 'Customer already left feedback'});
+    return res.send(customer);
+  });
 };

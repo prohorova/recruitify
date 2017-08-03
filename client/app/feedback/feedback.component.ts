@@ -13,10 +13,11 @@ import { DialogComponent } from '../shared/dialog/dialog.component';
 export class FeedbackComponent implements OnInit, OnDestroy {
 
   customerId: string;
+  customer: any;
   questions: any[];
   questionsForm: FormGroup;
   loading = false;
-  submitted = false;
+  notAvailable = false;
   sub: any;
 
   constructor(private route: ActivatedRoute,
@@ -32,6 +33,8 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       if (!this.customerId) {
         this.router.navigate(['/']);
       }
+
+      this.getCustomer();
 
       this.getQuestions();
     })
@@ -53,6 +56,21 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
   }
 
+  getCustomer() {
+    this.feedbackService.getCustomer(this.customerId)
+      .subscribe(data => {
+        this.customer = data;
+      }, err => {
+        this.dialog.open(DialogComponent, {
+          data: {
+            title: 'Feedback failure',
+            message: err.message
+          }
+        });
+        this.notAvailable = true;
+      })
+  }
+
   getQuestions() {
     this.feedbackService.getQuestions()
       .subscribe(data => {
@@ -68,7 +86,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     this.feedbackService.leaveFeedback(requestData)
       .subscribe(res => {
         this.loading = false;
-        this.submitted = true;
+        this.notAvailable = true;
 
         this.dialog.open(DialogComponent, {
           data: {

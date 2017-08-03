@@ -11,7 +11,7 @@ export class InviteService {
   constructor(private authHttp: AuthHttp) { }
 
   createInvitation(data) {
-    return this.authHttp.post('/api/invitation', data)
+    return this.authHttp.post('/api/customer', data)
       .map(res => res.json())
       .catch(err => Observable.throw(err.json()));
   }
