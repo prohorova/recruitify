@@ -1,4 +1,7 @@
 <md-toolbar color="primary">
+  <!--<button *ngIf="showToggleButton()" md-icon-button >-->
+    <!--<md-icon (click)="sidenav.close()">menu</md-icon>-->
+  <!--</button>-->
   <a routerLink="/"><span class="brand" >Recruitify</span></a>
   <span class="fill"></span>
   <button *ngIf="!isAuthenticated()" md-button routerLink="/auth/login">

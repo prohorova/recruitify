@@ -24,4 +24,7 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/auth']);
   }
 
+  // showToggleButton() {
+  //   return this.router.url.indexOf('dashboard') !== -1;
+  // }
 }
