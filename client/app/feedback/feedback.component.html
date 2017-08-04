@@ -1,12 +1,13 @@
-<md-sidenav-container class="sidenav-container" open>
-  <md-sidenav #sidenav class="sidenav" opened="true" mode="side">
-    <div class="company-logo"></div>
-  </md-sidenav>
+<!--<md-sidenav-container class="sidenav-container" open>-->
+  <!--<md-sidenav #sidenav class="sidenav" opened="true" mode="side">-->
+    <!--<div class="company-logo"></div>-->
+  <!--</md-sidenav>-->
 
-  <div class="sidenav-content">
-    <div *ngIf="customer">
-      Hi <b>{{ customer.name }}</b>. You were invited by <b>{{customer.user.companyName || '-'}}</b>.
-    </div>
+  <!--<div class="sidenav-content">-->
+<div class="container">
+    <h4 *ngIf="customer">
+      Hi {{ customer.name }}. You were invited by {{customer.user.companyName || '-'}}.
+    </h4>
     <div *ngIf="questionsForm">
       <form [formGroup]="questionsForm" (submit)="submit(questionsForm.value)">
         <div formArrayName="questions">
@@ -20,7 +21,8 @@
         <button type="submit" md-raised-button color="primary" [disabled]="loading || notAvailable">Submit</button>
       </form>
     </div>
-  </div>
+</div>
+  <!--</div>-->
 
-</md-sidenav-container>
+<!--</md-sidenav-container>-->
 
