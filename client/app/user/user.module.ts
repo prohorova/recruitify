@@ -8,6 +8,8 @@ import { RegisterComponent } from './register/register.component';
 import { userRoutes } from './user.routes';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { UserComponent } from './user.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   imports: [
@@ -15,7 +17,7 @@ import { UserComponent } from './user.component';
     RouterModule.forChild(userRoutes)
   ],
   exports: [ UserComponent ],
-  declarations: [ LoginComponent, RegisterComponent, ConfirmComponent, UserComponent ],
+  declarations: [ LoginComponent, RegisterComponent, ConfirmComponent, UserComponent, ForgotPasswordComponent, ResetPasswordComponent ],
   providers: [ UserService ]
 })
 

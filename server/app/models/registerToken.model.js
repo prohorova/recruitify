@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var Schema = mongoose.Schema;
 
-var TokenSchema = new Schema({
+var RegisterTokenSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     required: true,
@@ -20,6 +20,6 @@ var TokenSchema = new Schema({
   }
 });
 
-var Token = mongoose.model('Token', TokenSchema);
+var RegisterToken = mongoose.model('RegisterToken', RegisterTokenSchema);
 
-module.exports = Token;
+module.exports = RegisterToken;

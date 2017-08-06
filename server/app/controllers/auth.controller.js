@@ -3,7 +3,8 @@ var nodemailer = require('nodemailer');
 var crypto = require('crypto');
 var _ = require('lodash');
 var User = require('../models/user.model');
-var Token = require('../models/token.model');
+var RegisterToken = require('../models/registerToken.model.js');
+var ForgotPasswordToken = require('../models/forgotPasswordToken.model');
 var config = require('../../config/config');
 
 exports.login = function(req, res, next) {
@@ -40,12 +41,12 @@ exports.register = function(req, res, next) {
         user.save(function(err) {
           if (err) return next(err);
 
-          var token = new Token({
+          var registerToken = new RegisterToken({
             user: user,
             token: crypto.randomBytes(16).toString('hex')
           });
 
-          token.save(function(err) {
+          registerToken.save(function(err) {
             if (err) return next(err);
 
             // Send the email
@@ -64,17 +65,17 @@ exports.register = function(req, res, next) {
       newUser.save(function(err) {
         if (err) return next(err);
 
-        var token = new Token({
+        var registerToken = new RegisterToken({
           user: newUser,
           token: crypto.randomBytes(16).toString('hex')
         });
 
-        token.save(function(err) {
+        registerToken.save(function(err) {
           if (err) return next(err);
 
           // Send the email
           var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-          var mailOptions = { from: 'no-reply@example.com', to: newUser.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/confirm\/' + token.token + '.\n' };
+          var mailOptions = { from: 'no-reply@example.com', to: newUser.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/confirm\/' + registerToken.token + '.\n' };
           transporter.sendMail(mailOptions, function (err) {
             if (err) return res.status(500).send({ msg: err.message });
             return res.status(200).send({message: 'A verification email has been sent to ' + newUser.email});
@@ -86,11 +87,12 @@ exports.register = function(req, res, next) {
 };
 
 exports.confirm = function(req, res, next) {
-  var tokenStr = req.body.token;
-  Token.findOne({token: tokenStr}, function(err, token) {
+  var token = req.body.token;
+  if (!token) return res.status(400);
+  RegisterToken.findOne({token: token}, function(err, registerToken) {
     if (err) return next(err);
-    if (!token) return res.status(400).send({message: 'Invalid token'});
-    User.findOne({_id: token.user}, function(err, user) {
+    if (!registerToken) return res.status(400).send({message: 'Invalid token'});
+    User.findById(registerToken.user, function(err, user) {
       if (err) return next(err);
       if (!user) return res.status(400).send({message: 'No user found'});
       if (user.isVerified) return res.status(400).send({message: 'User was already verified'});
@@ -98,6 +100,49 @@ exports.confirm = function(req, res, next) {
       user.save(function(err) {
         if (err) return next(err);
         return res.send({message: 'The account has been verified. You can login now'});
+      })
+    })
+  })
+};
+
+exports.requestPasswordReset = function(req, res, next) {
+  var email = req.body.email;
+  User.findOne({email: email}, function(err, user) {
+    if (err) return next(err);
+    if (!user) return res.status(400).send({message: 'No user for this email found'});
+    var forgotPasswordToken = new ForgotPasswordToken({
+      user: user,
+      token: crypto.randomBytes(16).toString('hex')
+    });
+    forgotPasswordToken.save(function(err) {
+      if (err) return next(err);
+
+      // Send the email
+      var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
+      var mailOptions = { from: 'no-reply@example.com', to: email, subject: 'Reset password', text: 'Hello,\n\n' + 'Reset your password by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/reset-password\/' + forgotPasswordToken.token + '.\n' };
+      transporter.sendMail(mailOptions, function (err) {
+        if (err) return res.status(500).send({ msg: err.message });
+        return res.status(200).send({message: 'Email for password reset has been sent to ' + email});
+      });
+    })
+  })
+};
+
+exports.resetPassword = function(req, res, next) {
+  var token = req.body.token;
+  var newPassword = req.body.password;
+  if (!token) return res.status(400);
+  ForgotPasswordToken.findOne({token: token}, function(err, forgotPasswordToken) {
+    if (err) return next(err);
+    if (!forgotPasswordToken) return res.status(400).send({message: 'Link expired or invalid'});
+    User.findById(forgotPasswordToken.user, function(err, user) {
+      if (err) return next(err);
+      if (!user) return res.status(400).send({message: 'No user found'});
+      user.setPasswordHash(newPassword);
+      user.save(function(err) {
+        if (err) return next(err);
+        forgotPasswordToken.remove();
+        return res.send({message: 'Your password has been changed'});
       })
     })
   })

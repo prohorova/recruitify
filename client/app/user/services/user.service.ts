@@ -28,4 +28,16 @@ export class UserService {
       .catch(err => Observable.throw(err.json()))
   }
 
+  requestPasswordReset(data) {
+    return this.http.post('/api/forgot-password', data)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()))
+  }
+
+  resetPassword(data) {
+    return this.http.post('/api/reset-password', data)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()))
+  }
+
 }

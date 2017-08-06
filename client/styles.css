@@ -22,12 +22,12 @@ a[routerLink] {
 
 .center-container {
   width: 90%;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .container {
   width: 90%;
-  margin: 20px auto 0;
+  margin: 20px auto;
 }
 
 form {

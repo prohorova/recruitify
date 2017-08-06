@@ -1,4 +1,5 @@
 <div class="center-container">
+  <h1 class="center">Register</h1>
   <form [formGroup]="registerForm" (submit)="submit(registerForm.value)">
     <md-input-container>
       <input mdInput type="text"  placeholder="Name" [formControl]="registerForm.controls['name']">
@@ -18,7 +19,7 @@
     <md-input-container>
       <input mdInput type="text"  placeholder="Phone number" [formControl]="registerForm.controls['phone']">
     </md-input-container>
-    <button type="submit" md-raised-button color="primary" [disabled]="!registerForm.valid || loading">Register</button>
-    <button type="button" md-button color="accent" routerLink="/login">Login</button>
+    <button type="submit" md-raised-button color="accent" [disabled]="!registerForm.valid || loading">Register</button>
+    <button type="button" md-raised-button color="primary" routerLink="/auth/login">Login</button>
   </form>
 </div>

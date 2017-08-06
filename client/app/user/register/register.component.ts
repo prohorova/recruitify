@@ -36,10 +36,6 @@ export class RegisterComponent implements OnInit {
           this.loading = false;
           this.registerForm.reset();
 
-          Object.keys(this.registerForm.controls).forEach(key => {
-            this.registerForm.controls[key].setErrors(null)
-          });
-
           this.dialog.open(DialogComponent, {
             data: {
               title: 'Registration successful',

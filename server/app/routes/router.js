@@ -15,6 +15,12 @@ module.exports = function(app) {
 
   app.post('/api/confirm', authController.confirm);
 
+  // password reset
+
+  app.post('/api/forgot-password', authController.requestPasswordReset);
+
+  app.post('/api/reset-password', authController.resetPassword);
+
   // user
 
   app.get('/api/statistics', authController.hasAccess, usersController.getStatistics);
