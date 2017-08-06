@@ -4,6 +4,11 @@
   flex: 1;
 }
 
+.question-wrapper {
+  margin-bottom: 20px;
+}
+
 .question {
-  margin-right: 10px;
+  display: block;
+  padding: 10px 0;
 }

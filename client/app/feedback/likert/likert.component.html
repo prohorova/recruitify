@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <md-radio-group class="radio-group" [formControl]="control">
+    <md-radio-button class="radio-button" *ngFor="let num of scale" [value]="num"></md-radio-button>
+  </md-radio-group>
+  <div class="labels">
+    <p class="disagree">Strongly disagree</p>
+    <p class="agree">Strongly agree</p>
+  </div>
+</div>

@@ -5,7 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { feedbackRoutes } from './feedback.routes';
 import { FeedbackComponent } from './feedback.component';
 import { FeedbackService } from './services/feedback.service';
-import { QuestionComponent } from './question/question/question.component';
+import { LikertComponent } from './likert/likert.component';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { QuestionComponent } from './question/question/question.component';
     RouterModule.forChild(feedbackRoutes)
   ],
   exports: [ FeedbackComponent ],
-  declarations: [ FeedbackComponent, QuestionComponent ],
+  declarations: [ FeedbackComponent, LikertComponent ],
   providers: [ FeedbackService ]
 })
 

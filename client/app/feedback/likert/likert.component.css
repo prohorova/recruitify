@@ -1,0 +1,20 @@
+.wrapper {
+  max-width: 800px;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-around;
+}
+
+.radio {
+  display: inline-block;
+
+}
+
+.labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
