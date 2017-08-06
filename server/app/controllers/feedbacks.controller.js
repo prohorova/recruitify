@@ -2,7 +2,7 @@ var Customer = require('../models/customer.model');
 var Feedback = require('../models/feedback.model');
 
 exports.create = function(req, res, next) {
-  Customer.findOne({_id: req.body.customerId}, function(err, customer) {
+  Customer.findById(req.body.customerId, function(err, customer) {
     if (err) return next(err);
     if (!customer) return res.status(400).send({message: 'Customer doesn\'t exist'});
     if (customer.completed) return res.status(400).send({message: 'Customer already left feedback'});
