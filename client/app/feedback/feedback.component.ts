@@ -21,7 +21,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   sub: any;
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
               private fb: FormBuilder,
               private dialog: MdDialog,
               private feedbackService: FeedbackService) { }
