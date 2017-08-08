@@ -6,8 +6,8 @@ import { DialogComponent } from '../../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-invite-form',
-  templateUrl: './invite-form.component.html',
-  styleUrls: ['./invite-form.component.css']
+  templateUrl: 'invite-form.component.html',
+  styleUrls: ['invite-form.component.css']
 })
 export class InviteFormComponent implements OnInit {
 

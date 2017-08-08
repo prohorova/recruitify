@@ -17,13 +17,13 @@ export class FeedbackService {
   }
 
   getCustomer(customerId) {
-    return this.http.get(`/api/customer/${customerId}`)
+    return this.http.get(`/api/customers/${customerId}`)
       .map(res => res.json())
       .catch(err => Observable.throw(err.json()))
   }
 
   leaveFeedback(data) {
-    return this.http.post('/api/feedback', data)
+    return this.http.post('/api/feedbacks', data)
       .map(res => res.json())
       .catch(err => Observable.throw(err.json()))
   }

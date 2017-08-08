@@ -27,9 +27,11 @@ module.exports = function(app) {
 
   // customers
 
-  app.post('/api/customer', authController.hasAccess, customersController.create);
+  app.get('/api/customers', authController.hasAccess, customersController.list);
 
-  app.get('/api/customer/:id', customersController.get);
+  app.post('/api/customers', authController.hasAccess, customersController.create);
+
+  app.get('/api/customers/:id', customersController.get);
 
   // questions
 
@@ -37,9 +39,9 @@ module.exports = function(app) {
 
   // feedback
 
-  app.get('/api/feedback', authController.hasAccess, feedbackController.list);
+  app.get('/api/feedbacks', authController.hasAccess, feedbackController.list);
 
-  app.post('/api/feedback', feedbackController.create);
+  app.post('/api/feedbacks', feedbackController.create);
 
   // error handler
 

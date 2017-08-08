@@ -1,0 +1,10 @@
+<div *ngIf="message">{{message}}</div>
+<div *ngIf="!message">
+  <div class="customers">
+    <div *ngFor="let customer of data.customers" class="customer-wrapper">
+      <div class="name">{{customer.name}} - </div>
+      <div class="contact">{{customer.email || customer.phone}}</div>
+    </div>
+  </div>
+  <button type="button" md-raised-button color="primary" [disabled]="loading" (click)="invite()">Invite</button>
+</div>

@@ -1,0 +1,75 @@
+md-card-content {
+  flex: 1;
+}
+
+.header, .main, .reviews {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+
+.logo {
+  display: flex;
+  flex: 1;
+}
+
+.company-logo {
+  background-color: #999;
+  width: 60px;
+  height: 60px;
+}
+
+.buttons {
+  text-align: center;
+}
+
+.buttons button {
+  display: block;
+  width: 100%;
+}
+
+.buttons button:first-child {
+  margin-bottom: 10px;
+}
+
+.questions {
+  display: flex;
+  flex: 3;
+}
+
+.customers {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.customers md-card {
+  flex: 1;
+}
+
+.customers md-card:first-child {
+  margin-bottom: 10px;
+}
+
+.questions-stat {
+  display: flex;
+  flex: 1;
+  margin-right: 20px;
+}
+
+.reviews-btn {
+  float: right;
+}
+
+.positive, .negative, .positive md-card, .negative md-card {
+  display: flex;
+  flex: 1;
+}
+
+.positive {
+  margin-right: 10px;
+}
+
+.negative {
+  margin-left: 10px;
+}

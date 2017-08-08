@@ -18,7 +18,7 @@ var FeedbackSchema = new Schema({
         required: true
       },
       answer: {
-        type: String,
+        type: Number,
         required: true
       }
     }

@@ -13,7 +13,7 @@ export class ReviewsService {
               private authService: AuthService) { }
 
   getReviews() {
-    return this.authHttp.get(`/api/feedback`)
+    return this.authHttp.get(`/api/feedbacks`)
       .map(res => res.json())
       .catch(err => {
         if (err.status === 401) {

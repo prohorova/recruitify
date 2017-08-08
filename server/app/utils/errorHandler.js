@@ -6,6 +6,8 @@ module.exports = function(err, req, res, next) {
     } else if (err.errors) {  // mongodb validation errors
         var errorKeys = Object.keys(err.errors);
         message = err.errors[errorKeys[0]].message;
+    } else if (err.message) {
+      message = err.message;
     } else {
         message = 'An internal error occurred'
     }

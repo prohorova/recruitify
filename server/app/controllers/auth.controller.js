@@ -1,11 +1,11 @@
 var jwt = require('jsonwebtoken');
-var nodemailer = require('nodemailer');
 var crypto = require('crypto');
 var _ = require('lodash');
 var User = require('../models/user.model');
 var RegisterToken = require('../models/registerToken.model.js');
 var ForgotPasswordToken = require('../models/forgotPasswordToken.model');
 var config = require('../../config/config');
+var emailHelper = require('../utils/emailHelper');
 
 exports.login = function(req, res, next) {
   var email = req.body.email;
@@ -50,10 +50,9 @@ exports.register = function(req, res, next) {
             if (err) return next(err);
 
             // Send the email
-            var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-            var mailOptions = { from: 'no-reply@example.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/confirm\/' + token.token + '.\n' };
-            transporter.sendMail(mailOptions, function (err) {
-              if (err) return res.status(500).send({ msg: err.message });
+            var mailOptions = { to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/confirm\/' + registerToken.token + '.\n' };
+            emailHelper.sendEmail(mailOptions, function (err) {
+              if (err) return res.status(500).send({ message: err.message });
               return res.status(200).send({message: 'A verification email has been sent to ' + user.email});
             });
           })
@@ -73,11 +72,9 @@ exports.register = function(req, res, next) {
         registerToken.save(function(err) {
           if (err) return next(err);
 
-          // Send the email
-          var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-          var mailOptions = { from: 'no-reply@example.com', to: newUser.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/confirm\/' + registerToken.token + '.\n' };
-          transporter.sendMail(mailOptions, function (err) {
-            if (err) return res.status(500).send({ msg: err.message });
+          var mailOptions = { to: newUser.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/confirm\/' + registerToken.token + '.\n' };
+          emailHelper.sendEmail(mailOptions, function(err) {
+            if (err) return res.status(500).send({ message: err.message });
             return res.status(200).send({message: 'A verification email has been sent to ' + newUser.email});
           });
         })
@@ -117,11 +114,9 @@ exports.requestPasswordReset = function(req, res, next) {
     forgotPasswordToken.save(function(err) {
       if (err) return next(err);
 
-      // Send the email
-      var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-      var mailOptions = { from: 'no-reply@example.com', to: email, subject: 'Reset password', text: 'Hello,\n\n' + 'Reset your password by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/reset-password\/' + forgotPasswordToken.token + '.\n' };
-      transporter.sendMail(mailOptions, function (err) {
-        if (err) return res.status(500).send({ msg: err.message });
+      var mailOptions = { to: email, subject: 'Reset password', text: 'Hello,\n\n' + 'Reset your password by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/reset-password\/' + forgotPasswordToken.token + '.\n' };
+      emailHelper.sendEmail(mailOptions, function (err) {
+        if (err) return res.status(500).send({ message: err.message });
         return res.status(200).send({message: 'Email for password reset has been sent to ' + email});
       });
     })

@@ -1,0 +1,53 @@
+<div class="header">
+  <div class="logo">
+    <div class="company-logo"></div>
+  </div>
+  <div class="buttons">
+    <button type="button" md-raised-button color="primary" routerLink="/dashboard/invite">Invite customers</button>
+    <button type="button" md-raised-button color="primary">Get questionnaire</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="questions">
+    <md-card class="questions-stat">
+      <md-card-content>
+        <p *ngFor="let question of stats.questions">
+          {{question._id}} <b>{{question.score}}</b>
+        </p>
+        <a md-raised-button color="primary" class="reviews-btn" routerLink="/dashboard/reviews">See all reviews</a>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div class="customers">
+    <md-card>
+      <md-card-content>
+        Number of candidates invited: <b>{{stats.customers && stats.customers.invited}}</b>
+      </md-card-content>
+    </md-card>
+    <md-card>
+      <md-card-content>
+        Number of questionnaires completed: <b>{{stats.customers && stats.customers.completed}}</b>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+
+<div class="reviews">
+  <div class="positive">
+    <md-card>
+      <md-card-title>Positive comments</md-card-title>
+      <md-card-content>
+
+      </md-card-content>
+    </md-card>
+  </div>
+  <div class="negative">
+    <md-card>
+      <md-card-title>Negative comments</md-card-title>
+      <md-card-content>
+
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

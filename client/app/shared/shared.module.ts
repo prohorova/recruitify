@@ -34,6 +34,7 @@ import { NavComponent } from './nav/nav.component';
     MdCardModule,
     MdRadioModule,
     MdSliderModule,
+    MdIconModule,
 
     MdProgressBarModule,
 

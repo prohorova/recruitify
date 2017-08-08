@@ -13,7 +13,18 @@ export class InviteService {
               private authService: AuthService) { }
 
   createInvitation(data) {
-    return this.authHttp.post('/api/customer', data)
+    return this.authHttp.post('/api/customers', data)
+      .map(res => res.json())
+      .catch(err => {
+        if (err.status === 401) {
+          this.authService.logout();
+        }
+        return Observable.throw(err.json());
+      });
+  }
+
+  getCustomers() {
+    return this.authHttp.get('/api/customers')
       .map(res => res.json())
       .catch(err => {
         if (err.status === 401) {

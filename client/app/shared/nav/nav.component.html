@@ -11,7 +11,13 @@
     Register
   </button>
   <button *ngIf="isAuthenticated()" md-button routerLink="/dashboard">
-    Dashboard
+    Statistics
+  </button>
+  <button *ngIf="isAuthenticated()" md-button routerLink="/dashboard/invite">
+    Invite
+  </button>
+  <button *ngIf="isAuthenticated()" md-button routerLink="/dashboard/customers">
+    Customers
   </button>
   <button *ngIf="isAuthenticated()" md-button routerLink="/dashboard/reviews">
     Reviews

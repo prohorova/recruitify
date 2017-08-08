@@ -8,10 +8,13 @@ import { ReviewsService } from './services/reviews.service';
 import { StatisticsService } from './services/statistics.service';
 import { DashboardComponent } from './dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
-import { BoardComponent } from './board/board.component';
-import { InviteFormComponent } from './board/invite-form/invite-form.component';
-import { StatisticsComponent } from './board/statistics/statistics.component';
+import { InviteFormComponent } from './invite/invite-form/invite-form.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { BulkInviteComponent } from './invite/bulk-invite/bulk-invite.component';
+import { InviteComponent } from './invite/invite.component';
+import { CustomersComponent } from './customers/customers.component';
+import { InviteListComponent } from './invite/bulk-invite/invite-list/invite-list.component';
 
 @NgModule({
   imports: [
@@ -19,9 +22,19 @@ import { ReviewsComponent } from './reviews/reviews.component';
     RouterModule.forChild(dashboardRoutes)
   ],
   exports: [ DashboardComponent ],
-  declarations: [ DashboardComponent, ProfileComponent, BoardComponent, InviteFormComponent, StatisticsComponent,
-    ReviewsComponent ],
-  providers: [ InviteService, ReviewsService, StatisticsService ]
+  declarations: [
+    DashboardComponent,
+    ProfileComponent,
+    InviteFormComponent,
+    StatisticsComponent,
+    ReviewsComponent,
+    BulkInviteComponent,
+    InviteComponent,
+    CustomersComponent,
+    InviteListComponent
+  ],
+  providers: [ InviteService, ReviewsService, StatisticsService ],
+  entryComponents: [ InviteListComponent ]
 })
 
 export class DashboardModule {

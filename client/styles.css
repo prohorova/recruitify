@@ -83,27 +83,6 @@ form md-input-container {
   100%  { transform: rotate(360deg); }
 }
 
-/* sidenav */
 
-.sidenav-container {
-  flex: 1;
-}
-
-.sidenav {
-  box-shadow: 3px 0 6px rgba(0,0,0,.24);
-  width: 300px;
-}
-
-.sidenav, .sidenav-content {
-  padding: 20px;
-}
-
-.company-logo {
-  background-color: #999;
-  border-radius: 50%;
-  width: 100%;
-  padding-top: 100%;
-  position: relative;
-}
 
 
