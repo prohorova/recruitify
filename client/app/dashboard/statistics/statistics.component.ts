@@ -22,7 +22,7 @@ export class StatisticsComponent implements OnInit {
   }
 
   getOverallScore() {
-    return this.stats
+    return this.stats.questions
       && this.stats.questions.reduce((sum, question) => sum + question.score, 0)/this.stats.questions.length;
   }
 
