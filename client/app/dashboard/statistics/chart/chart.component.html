@@ -1,0 +1,12 @@
+<div class="chart">
+  <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          [legend]="legend"
+          [options]="options"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
+<span>Your overall score {{score}}</span>
+

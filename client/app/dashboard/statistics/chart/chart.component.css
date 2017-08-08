@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.chart {
+  display: block;
+  width: 90px;
+  margin: 0 10px 0 30px;
+}
+
+span {
+  align-self: center;
+}

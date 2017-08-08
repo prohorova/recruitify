@@ -1,6 +1,7 @@
 <div class="header">
   <div class="logo">
     <div class="company-logo"></div>
+    <app-chart [score]="getOverallScore()"></app-chart>
   </div>
   <div class="buttons">
     <button type="button" md-raised-button color="primary" routerLink="/dashboard/invite">Invite customers</button>
