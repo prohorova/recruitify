@@ -50,7 +50,7 @@ function createCustomer(userId, protocol, host, data, callback) {
 
     if (newCustomer.email) {
       var mailOptions = { to: newCustomer.email, subject: 'Invitation to leave a feedback', text: 'Hello,\n\n' +
-      'Please give us your feedback by clicking the link \n ' + protocol + ':\/\/' + host + '\/feedback\/' + newCustomer._id + '.\n' };
+      'Please give us your feedback by clicking the link \n ' + protocol + ':\/\/' + host + '\/feedback\/' + newCustomer._id };
       emailHelper.sendEmail(mailOptions, function(err) {
         if (err) return callback(err);
         newCustomer.save(function(err) {
