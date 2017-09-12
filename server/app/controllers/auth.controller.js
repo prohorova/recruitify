@@ -170,10 +170,13 @@ exports.validateLogin = function(req,res, next) {
 
 exports.validateRegister = function(req,res, next) {
   req.checkBody('name', 'Name is required').notEmpty();
+  req.checkBody('lastName', 'Last name is required').notEmpty();
   req.checkBody('email', 'Email is required').notEmpty();
   req.checkBody('email', 'Email is invalid').isEmail();
   req.checkBody('password', 'Passport is required').notEmpty();
   req.checkBody('password', 'Password should be at least 6 digits long').isLength({min: 6, max: undefined});
+  req.checkBody('companyName', 'Company is required').notEmpty();
+  req.checkBody('phone', 'Phone is required').notEmpty();
 
   req.getValidationResult().then(function(result) {
     if (!result.isEmpty()) {

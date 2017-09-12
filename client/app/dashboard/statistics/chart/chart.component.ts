@@ -18,6 +18,9 @@ export class ChartComponent implements OnInit, OnChanges {
       enabled: false
     }
   };
+  colors = [{
+    backgroundColor: ['#ffd740', '#673ab7']
+  }];
 
   constructor() {}
 

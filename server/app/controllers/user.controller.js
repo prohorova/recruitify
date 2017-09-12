@@ -1,16 +1,19 @@
-var User = require('../models/user.model');
 var Customer = require('../models/customer.model');
 var Feedback = require('../models/feedback.model');
+var ObjectId = require('mongoose').Types.ObjectId;
 var _ = require('lodash');
 var async = require('async');
+var round = require('mongo-round');
 
 exports.getStatistics = function(req, res, next) {
   async.parallel({
     questions: function(callback) {
       Feedback.aggregate([
+        {$match: {user: ObjectId(req.decoded._id)}},
         {$unwind: '$questions'},
         {$project: {'question': '$questions.question', 'answer': '$questions.answer'}},
-        {$group: {_id: '$question', score: {$avg: '$answer'}}}
+        {$group: {_id: '$question', score: {$avg: '$answer'}}},
+        {$project: {score: round('$score', 2)}}
       ], function (err, questions) {
         if (err) return callback(err);
         return callback(null, questions);

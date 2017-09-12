@@ -38,6 +38,7 @@
     "hammerjs": "^2.0.8",
     "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
+    "mongo-round": "^1.0.0",
     "mongoose": "^4.11.4",
     "morgan": "^1.8.2",
     "ng2-charts": "^1.6.0",

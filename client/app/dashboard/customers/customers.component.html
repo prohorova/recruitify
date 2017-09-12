@@ -1,7 +1,9 @@
 <div *ngIf="customers && !customers.length">No customers yet</div>
 <md-card *ngFor="let customer of customers">
   <md-card-title>
-    <md-icon *ngIf="customer.completed" color="accent">done</md-icon>{{customer.name}}
+    <md-icon *ngIf="!customer.completed" class="danger">clear</md-icon>
+    <md-icon *ngIf="customer.completed" color="primary">done</md-icon>
+    {{customer.name}}
   </md-card-title>
   <md-card-subtitle>
     {{customer.email || customer.phone}}

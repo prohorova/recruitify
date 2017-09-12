@@ -1,11 +1,12 @@
 <div class="header">
   <div class="logo">
-    <div class="company-logo"></div>
     <app-chart *ngIf="stats.questions && stats.questions.length" [score]="getOverallScore()"></app-chart>
   </div>
   <div class="buttons">
-    <button type="button" md-raised-button color="primary" routerLink="/dashboard/invite">Invite customers</button>
-    <button type="button" md-raised-button color="primary">Get questionnaire</button>
+    <button type="button" md-raised-button color="primary" routerLink="/dashboard/invite">
+      <md-icon>add</md-icon>
+      Invite customers
+    </button>
   </div>
 </div>
 
@@ -15,9 +16,12 @@
       <md-card-content>
         <p *ngIf="stats.questions && !stats.questions.length">No reviews yet</p>
         <p *ngFor="let question of stats.questions">
-          {{question._id}} <b>{{question.score}}</b>
+          {{question._id}} - <b>{{question.score}}</b>
         </p>
-        <a md-raised-button color="primary" class="reviews-btn" routerLink="/dashboard/reviews">See all reviews</a>
+        <a md-raised-button *ngIf="stats.questions && stats.questions.length"
+           color="primary" class="reviews-btn" routerLink="/dashboard/reviews">
+          See all reviews
+        </a>
       </md-card-content>
     </md-card>
   </div>

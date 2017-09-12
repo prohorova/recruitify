@@ -1,6 +1,6 @@
 <div class="container">
     <h4 *ngIf="customer">
-      Hi {{ customer.name }}. You were invited by {{customer.user.companyName || '-'}}.
+      Hi {{ customer.name }}! You were invited by {{customer.user.name}} {{customer.user.lastName}}
     </h4>
     <div *ngIf="questionsForm">
       <form [formGroup]="questionsForm" (submit)="submit(questionsForm.value)">

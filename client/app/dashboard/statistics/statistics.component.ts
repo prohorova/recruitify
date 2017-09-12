@@ -17,7 +17,7 @@ export class StatisticsComponent implements OnInit {
       .subscribe(data => {
         this.stats = data;
       }, err => {
-
+        console.log(err);
       });
   }
 

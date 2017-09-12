@@ -5,7 +5,7 @@ var async = require('async');
 
 exports.get = function(req, res, next) {
   var id = req.params.id;
-  Customer.findById(id).populate('user', 'companyName').exec(function(err, customer) {
+  Customer.findById(id).populate('user', 'name lastName').exec(function(err, customer) {
     if (err) return next(err);
     if (!customer) return res.status(400).send({message: 'No customer found'});
     if (customer.completed) return res.status(400).send({message: 'Customer already left feedback'});
@@ -14,7 +14,7 @@ exports.get = function(req, res, next) {
 };
 
 exports.list = function(req, res, next) {
-  Customer.find().sort('-completed').exec(function(err, customers) {
+  Customer.find({user: req.decoded._id}).sort('-completed').exec(function(err, customers) {
     if (err) return next(err);
     return res.send(customers);
   })
